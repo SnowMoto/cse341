@@ -2,3 +2,7 @@ tricks:
 npm init --y = creates a json file to build own script.
 npm install (name) --save = save file created.
 .gitignore to put node modules to not be pushed.
+app.get('/', (req, res) => {
+  res.send("Snow was here!");
+}); - this is a https route.
+^ this is moved to controllers and then called in routes to reduce server.js
