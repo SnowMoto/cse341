@@ -1,0 +1,4 @@
+tricks:
+npm init --y = creates a json file to build own script.
+npm install (name) --save = save file created.
+.gitignore to put node modules to not be pushed.
