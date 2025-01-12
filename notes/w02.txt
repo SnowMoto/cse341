@@ -1,0 +1,16 @@
+Steps: 
+install dotenv
+json packages and server.js file
+    -assign variables in index.js:
+    -express variable with app.use and then to app.listen to port.
+    -create path to index.html to sync frontend and backend
+    -assign port
+    -assign routes and call with app.use
+Create folders for controllers and routes with files
+    -build routes to controllers
+    -get data from controller
+    -export routes
+Controller file
+    -create object of data
+    -build functions to get data
+    -export functions
