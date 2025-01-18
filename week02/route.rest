@@ -1,0 +1,10 @@
+###
+GET http://localhost:8080/contacts/ 
+Content-Type: application/json
+###
+http://localhost:8080/contacts/678aff822eb820e0fa9ba1c5/
+###
+http://localhost:8080/contacts/678aff9c2eb820e0fa9ba1c6/
+###
+http://localhost:8080/contacts/678affb52eb820e0fa9ba1c7/
+###

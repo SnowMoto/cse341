@@ -1,18 +1,23 @@
 {
   "dependencies": {
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "index.js": "^0.0.3",
-    "json": "^11.0.0"
+    "json": "^11.0.0",
+    "mongodb": "^6.12.0"
   },
   "name": "week02",
   "version": "1.0.0",
-  "main": "index.html",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }

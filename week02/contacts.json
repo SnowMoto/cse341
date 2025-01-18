@@ -1,0 +1,25 @@
+{
+    "contact": {
+      "firstName": "Ryan",
+      "lastName": "Thomson",
+      "email": "lspats2@gmail.com",
+      "favoriteColor": "Red",
+      "birthday": "01/28/1984"
+    },
+
+    "contact2": {
+      "firstName": "Hudson",
+      "lastName": "Thomson",
+      "email": "hotrod1014@outlook.com",
+      "favoriteColor": "Blue",
+      "birthday": "10/10/2014"
+    },
+
+    "contact3": {
+      "firstName": "Alene",
+      "lastName": "Thomson",
+      "email": "mermaidgirl1018@outlook.com",
+      "favoriteColor": "Pink",
+      "birthday": "10/19/2018"
+    }
+}
