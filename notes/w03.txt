@@ -1,0 +1,8 @@
+POST is to add new data to the database. In rest api you add HTTP/1.1 
+ - 201 Created status code to indicate that the data has been successfully added to the database.
+PUT is to update existing data in the database.
+ - 204 Created status code to indicate the data has been successfully updated in the database.
+DELETE is to delete data from the database.
+ - 200 Created status code to indicate the data has been successfully deleted from the database.
+
+ All are installed into the REST API and in the controller contact file for codes.
