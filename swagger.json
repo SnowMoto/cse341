@@ -5,14 +5,26 @@
     "description": "Contacts API",
     "version": "1.0.0"
   },
-  "host": "https://cse341-winter2025.onrender.com/",
+  "host": "cse341-winter2025.onrender.com",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/contacts/": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -28,10 +40,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "firstname": {
+                "firstName": {
                   "example": "any"
                 },
-                "lastname": {
+                "lastName": {
                   "example": "any"
                 },
                 "email": {
@@ -60,7 +72,9 @@
     "/contacts/{id}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -129,24 +143,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
+          "204": {
+            "description": "No Content"
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
           }
         }
       }
