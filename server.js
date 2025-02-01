@@ -21,7 +21,7 @@ app
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
   });
-  app.use('/route', require('./route'));
+  app.use('/', require('./route/index'));
 
 
 mongodb.initDb((err, mongodb) => {
