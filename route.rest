@@ -32,6 +32,17 @@ Content-Type: application/json
 ###
 DELETE http://localhost:8080/contacts/6792945e5e20bac3f6ac1050 HTTP/1.1
 ###
+
+//DEPLOYMENT TO RENDER//
+
+### GET ALL CONTACTS
+GET https://cse341-winter2025.onrender.com/contacts 
+Content-Type: application/json
+
+### GET CONTACT BY ID
+https://cse341-winter2025.onrender.com/contacts/678aff822eb820e0fa9ba1c5/
+
+###
 POST https://cse341-winter2025.onrender.com/contacts HTTP/1.1
 Content-Type: application/json
 
@@ -43,6 +54,7 @@ Content-Type: application/json
     "birthday": "11/15/2007"
 }
 ###
+
 PUT https://cse341-winter2025.onrender.com/contacts/678aff822eb820e0fa9ba1c5
 Content-Type: application/json
 {
@@ -53,5 +65,6 @@ Content-Type: application/json
     "birthday": "01/28/1984"
 }
 ###
+
 DELETE https://cse341-winter2025.onrender.com/contacts/6793c7bd1b955bab9ffebba1 HTTP/1.1
 ###
