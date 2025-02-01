@@ -26,11 +26,11 @@ Content-Type: application/json
     "firstName": "Ryan",
     "lastName": "Thomson",
     "email": "lspats2@gmail.com",
-    "favoriteColor": "Green",
+    "favoriteColor": "Red",
     "birthday": "01/28/1984"
 }
 ###
-DELETE http://localhost:8080/contacts/6792945e5e20bac3f6ac1050 HTTP/1.1
+DELETE http://localhost:8080/contacts/679e7104efbda63c8c13dca5 HTTP/1.1
 ###
 
 //DEPLOYMENT TO RENDER//
@@ -40,7 +40,7 @@ GET https://cse341-winter2025.onrender.com/contacts
 Content-Type: application/json
 
 ### GET CONTACT BY ID
-//GET https://cse341-winter2025.onrender.com/contacts/678aff822eb820e0fa9ba1c5/
+GET https://cse341-winter2025.onrender.com/contacts/678aff822eb820e0fa9ba1c5/
 
 ###
 POST https://cse341-winter2025.onrender.com/contacts HTTP/1.1
@@ -66,5 +66,5 @@ Content-Type: application/json
 }
 ###
 
-DELETE https://cse341-winter2025.onrender.com/contacts/6793c7bd1b955bab9ffebba1 HTTP/1.1
+DELETE https://cse341-winter2025.onrender.com/contacts/679e6d852f84f5d18e856778 HTTP/1.1
 ###
