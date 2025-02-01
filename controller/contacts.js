@@ -57,14 +57,10 @@ const updateContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
-  const userId = new ObjectId(req.params.id);  
+  const userId = new ObjectId(req.params.id);
   try {
-    const response = await mongodb
-      .getDb()
-      .db()
-      .collection('contacts')
-      .deleteOne({ _id: userId });
-    
+    const response = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: userId });
+
     if (response.deletedCount > 0) {
       res.status(200).json({ message: 'Contact deleted successfully.' });
     } else {
@@ -75,4 +71,4 @@ const deleteContact = async (req, res) => {
   }
 };
 
-module.exports = {getAll, getSingle, createContact, updateContact, deleteContact};
+module.exports = { getAll, getSingle, createContact, updateContact, deleteContact };

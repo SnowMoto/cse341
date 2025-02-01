@@ -38,7 +38,7 @@ const nameRoute = (req, res) => {
 
   res.send(htmlContent);
 };
-  
-module.exports ={
-    nameRoute
-}
+
+module.exports = {
+  nameRoute
+};
