@@ -12,7 +12,7 @@ app
   .use(cors())
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  .use('/', require('./routes'));
+  .use('/', require('./route'));
 
 app
   .use(bodyParser.json())
