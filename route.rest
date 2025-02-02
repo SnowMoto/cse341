@@ -67,5 +67,6 @@ Content-Type: application/json
 }
 ###
 
-DELETE https://cse341-winter2025.onrender.com/contacts/679eb8b736c0fe3b4b221080 HTTP/1.1
+DELETE https://cse341-winter2025.onrender.com/contacts/679ebecefaa28aa9c08f8270 HTTP/1.1
+Content-Type: application/json
 ###

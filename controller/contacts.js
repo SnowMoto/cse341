@@ -58,13 +58,22 @@ const updateContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
-  const userId = new ObjectId(req.params.id);
-  const response = await mongodb.getDb().db().collection('contacts').remove({ _id: userId }, true);
-  console.log(response);
-  if (response.deletedCount > 0) {
-    res.status(204).send();
-  } else {
-    res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
+  try {
+    const userId = new ObjectId(req.params.id);
+    const db = await connectToDatabase(process.env.DB_NAME);
+    const response = await db.collection("contacts").deleteOne({ _id: userId });
+    if (response.deletedCount > 0) {
+      res.status(200).send({ message: "Contact deleted successfully." });
+    } else {
+      res
+        .status(500)
+        .json(
+          response.error ||
+            "An error occurred while trying to delete the contact."
+        );
+    }
+  } catch (error) {
+    res.status(500).json({ error: "An unexpected error occurred." });
   }
 };
 
