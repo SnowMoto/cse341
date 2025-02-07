@@ -1,0 +1,42 @@
+{
+    "bike_make_id": "G",
+    "bike_make": "GasGas",
+    "dirtbikes": [
+        {
+            "bike_id": "G1",
+            "bike_model": "EC450",
+            "engine_type": "2 stroke",
+            "trail_type": "All terrain",
+            "handling_type": "Low Torque Power",
+            "racing_type": "Enduro and Motocross",
+            "rider_level": "Intermediate/Advanced"
+        },
+        {
+            "bike_id": "G2",
+            "bike_model": "MC250",
+            "engine_type": "2 stroke",
+            "trail_type": "Motocross tracks",
+            "handling_type": "High Torque Power",
+            "racing_type": "Motocross",
+            "rider_level": "Advanced"
+        },
+        {
+            "bike_id": "G3",
+            "bike_model": "TXT300",
+            "engine_type": "2 stroke",
+            "trail_type": "Technical trials",
+            "handling_type": "Precision Control",
+            "racing_type": "Enduro/Motocross",
+            "rider_level": "Intermediate/Advanced"
+        },
+        {
+            "bike_id": "G4",
+            "bike_model": "EC300",
+            "engine_type": "2 stroke",
+            "trail_type": "Technical trials",
+            "handling_type": "Precision and Torque Control",
+            "racing_type": "Trials/Enduro",
+            "rider_level": "Intermediate/Advanced"
+        }
+    ]
+}

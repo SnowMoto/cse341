@@ -1,0 +1,34 @@
+{
+    "users": [
+        {
+            "user_id": "Shadow",
+            "username": "Shadow",
+            "password": "shadow85",
+            "email": "lspats2@gmail.com",
+            "state": "Utah",
+            "dirtbike": "GasGas EC300",
+            "riding_style": "Enduro",
+            "rider_level": "Intermediate"
+        },
+        {
+            "user_id": "MotoRider99",
+            "username": "MotoRider99",
+            "password": "riderX123",
+            "email": "moto99@gmail.com",
+            "state": "California",
+            "dirtbike": "KTM 250F",
+            "riding_style": "Motocross",
+            "rider_level": "Advanced"
+        },
+        {
+            "user_id": "MotoGirlMonday",
+            "username": "MotoGirlMonday",
+            "password": "eatdirt123",
+            "email": "motogirlmonday@gmail.com",
+            "state": "Utah",
+            "dirtbike": "KTM Freestyle 250",
+            "riding_style": "Motocross/Trails",
+            "rider_level": "Intermediate"
+        }
+    ]
+}

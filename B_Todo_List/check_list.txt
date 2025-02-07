@@ -1,0 +1,8 @@
+Select Project to create
+Create new node js
+Create new db with 2 collections - 1. Users 2. needs 7 fields
+Connect to db
+API routes to perform GET, POST, PUT and DELETE - use swagger-autogen with swagger.json
+Need validation and error handling
+OAuth - access to user information/profile without password
+API published to Render

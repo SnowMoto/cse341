@@ -1,0 +1,31 @@
+
+Collection 1 -
+User
+    _id                     MongoDB_ID
+    user_id                 String
+    user_name               String
+    password                String
+    email                   String
+    state                   String
+    dirtbike                String
+    riding_style            String
+    rider_level             String
+    share_profile           Boolean
+
+Collection 2 -
+Dirt Bikes
+    _id                     MongoDB_ID
+
+General Bike ID to show all bikes by manufactor
+    bike_make_id            String
+    bike_make               String
+    dirtbike                Array
+
+Array Details
+    bike_id                 String
+    bike_model              String
+    engine_type             String
+    trail_type              String
+    handling_type           String
+    racing_type             String
+    rider_level             String                                                          
