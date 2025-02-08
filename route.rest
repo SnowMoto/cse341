@@ -26,7 +26,13 @@ Content-Type: application/json
 ### GET USERS BY ID
 GET https://cse341-winter2025.onrender.com/user_profile/MotoRider99
 Content-Type: application/json
-###
-GET https://cse341-winter2025.onrender.com/user_profile HTTP/1.1
+### POST NEW USER
+POST https://cse341-winter2025.onrender.com/user_profile HTTP/1.1
 Content-Type: application/json
-
+### UPDATE USER - not ready yet
+PUT https://cse341-winter2025.onrender.com/user_profile HTTP/1.1
+Content-Type: application/json
+### DELETE USER BY ID - not ready yet
+DELETE https://cse341-winter2025.onrender.com/user_profile HTTP/1.1
+Content-Type: application/json
+###
