@@ -51,35 +51,48 @@ const getSingle = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
-    if (!username || !email || !password) {
-      return res.status(400).json({ error: "Username, email, and password are required." });
+    const db = mongodb.getDb().db();
+    const userCollection = db.collection("user_profile");
+    //Check if user exsists 
+    const existingUser = await userCollection.findOne({
+      "users.user_id": username
+    });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username or email already exists." });
     }
-
     const user = {
       user_id: username, 
       username,
       email,
-      password, 
+      password,
       state,
       dirtbike,
       riding_style,
       rider_level
     };
-    const response = await mongodb.getDb().db().collection("user_profile").updateOne(
-      { _id: ObjectId },
-      { $push: { users: user } },
-      { upsert: true }
-    );
-
-    res.status(201).json({ message: "User created", userId: user.user_id });
+    const response = await userCollection.insertOne(user);
+    if (response.acknowledged) {
+      res.status(201).json({ message: "User created successfully", userId: user.user_id });
+    } 
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+
+const updateUser = async (req, res) => {
+
+};
+
+const deleteUser = async (req, res) => {
+
+};
+
 module.exports = {
   getAll,
   getSingle,
   createUser,
+  updateUser,
+  deleteUser
 };
