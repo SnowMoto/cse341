@@ -1,6 +1,6 @@
-Select Project to create
+Select Project to create - Dirtbike Blog where riders can find info on gear and bikes
 Create new node js
-Create new db with 2 collections - 1. Users 2. needs 7 fields
+Create new db with 2 collections - 1. User_Profile 2. Dirbikes
 Connect to db
 API routes to perform GET, POST, PUT and DELETE - use swagger-autogen with swagger.json
 Need validation and error handling

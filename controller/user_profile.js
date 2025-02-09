@@ -53,6 +53,7 @@ const createUser = async (req, res) => {
     const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
     const db = mongodb.getDb().db();
     const userCollection = db.collection("user_profile");
+    const parentDocument = await userCollection.findOne({});
     //Check if user exsists 
     const existingUser = await userCollection.findOne({
       "users.user_id": username
@@ -70,7 +71,10 @@ const createUser = async (req, res) => {
       riding_style,
       rider_level
     };
-    const response = await userCollection.insertOne(user);
+    const response = await userCollection.updateOne(
+      { _id: parentDocument._id },
+      { $push: { users: user } } // Push new user into users array
+    );
     if (response.acknowledged) {
       res.status(201).json({ message: "User created successfully", userId: user.user_id });
     } 
