@@ -592,6 +592,7 @@
         "valid-url": "^1.0.9",
         "validate-npm-package-license": "^3.0.4",
         "validator": "^13.12.0",
+        "validatorjs": "^3.22.1",
         "vary": "^1.1.2",
         "w-json": "^1.3.10",
         "webidl-conversions": "^7.0.0",
