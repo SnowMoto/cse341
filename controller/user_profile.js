@@ -75,19 +75,24 @@ const createUser = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 const updateUser = async (req, res) => {
   try {
-    const userId = req.params.id;  
-    const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
-
+    const userId = req.params.id; 
+    const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;  
     if (!userId) {
       return res.status(400).json({ error: "User ID is required." });
     }
-
     const db = mongodb.getDb().db();
     const userCollection = db.collection("user_profile");
+    const userProfile = await userCollection.findOne({
+      "users.user_id": userId
+    });
+    if (!userProfile) {
+      return res.status(404).json({ error: "User not found." });
+    }
     const response = await userCollection.updateOne(
-      { "users.user_id": userId },  
+      { "users.user_id": userId },
       { $set: { 
           "users.$.username": username,
           "users.$.email": email,
