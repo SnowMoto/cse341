@@ -18,15 +18,15 @@ Content-Type: application/json
   "rider_level": "Beginner"
 }
 ###
-PUT http://localhost:8080/user_profile/DarthVader HTTP/1.1
+PUT http://localhost:8080/user_profile/BoKatan HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "DarthVader",
-  "email": "vader@gmail.com",
-  "password": "powerofthedarkside",
+  "username": "BoKatan",
+  "email": "bobo@gmail.com",
+  "password": "bobo123",
   "state": "Utah",
-  "dirtbike": "SSR 300S",
+  "dirtbike": "GasGas 300S",
   "riding_style": "Enduro",
   "rider_level": "Advanced"
 }
@@ -48,16 +48,6 @@ Content-Type: application/json
 ### UPDATE USER 
 PUT https://cse341-winter2025.onrender.com/user_profile HTTP/1.1
 Content-Type: application/json
-
-{
-  "username": "DarthVader",
-  "email": "vader@gmail.com",
-  "password": "powerofthedarkside",
-  "state": "Utah",
-  "dirtbike": "SSR 300S",
-  "riding_style": "Enduro",
-  "rider_level": "Advanced"
-}
 
 ### DELETE USER BY ID 
 DELETE https://cse341-winter2025.onrender.com/ HTTP/1.1

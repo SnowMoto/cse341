@@ -76,55 +76,67 @@ const createUser = async (req, res) => {
   }
 };
 const updateUser = async (req, res) => {
-  const userId = req.params.id;
-  if (ObjectId.isValid(userId)) {
-    return res.status(400).json('Must use a valid user id to update.');
-  }
-  const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
-  const updatedUser = {
-    username,
-    email,
-    password,
-    state,
-    dirtbike,
-    riding_style,
-    rider_level
-  };
-    const result = await mongodb
-      .getDb()
-      .db()
-      .collection('user_profile')
-      .updateOne(
-        { "users.user_id": userId },
-        { $set: { "users.$": updatedUser } } 
-      );
-    if (result.modifiedCount > 0) {
-      return res.status(204).send('User updated successfully');
-    } else {
-      return res.status(404).json({ error: 'User not found or no data to update' });
+  try {
+    const userId = req.params.id;  
+    const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required." });
     }
+
+    const db = mongodb.getDb().db();
+    const userCollection = db.collection("user_profile");
+    const response = await userCollection.updateOne(
+      { "users.user_id": userId },  
+      { $set: { 
+          "users.$.username": username,
+          "users.$.email": email,
+          "users.$.password": password,
+          "users.$.state": state,
+          "users.$.dirtbike": dirtbike,
+          "users.$.riding_style": riding_style,
+          "users.$.rider_level": rider_level
+        }
+      }
+    );
+
+    if (response.modifiedCount === 0) {
+      return res.status(404).json({ error: "User not found or no changes made." });
+    }
+
+    res.status(200).json({ message: "User updated successfully" });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
+
 const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    if (ObjectId.isValid(userId)) {
-      return res.status(400).json({ error: "Valid User ID is required." });
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required." });
     }
-    const response = await mongodb
-      .getDb()
-      .db()
-      .collection('user_profile')
-      .updateOne(
-        { "users.user_id": userId },  
-        { $pull: { users: { user_id: userId } } }  
-      );
+
+    const db = mongodb.getDb().db();
+    const userCollection = db.collection("user_profile");
+    const response = await userCollection.updateOne(
+      { "users.user_id": userId },  
+      { $pull: { users: { user_id: userId } } } 
+    );
+
     if (response.modifiedCount === 0) {
-      return res.status(204).json({ message: "User deleted success." });
+      return res.status(404).json({ error: "User not found." });
     }
-    } catch (error) {
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
     res.status(500).json({ error: "Internal server error" });
-    }
+  }
 };
+
 
 module.exports = {
   getAll,
