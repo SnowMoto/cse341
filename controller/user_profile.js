@@ -69,9 +69,6 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const userId = req.params.id; 
   const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
-  if (ObjectId.isValid(userId)) {
-    return res.status(400).json({ error: 'Invalid user' });
-  }
   const userUpdate = {
     username,
     email,

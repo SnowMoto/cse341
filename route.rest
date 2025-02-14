@@ -50,13 +50,13 @@ PUT https://cse341-winter2025.onrender.com/user_profile HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "",
-  "email": "",
-  "password": "",
-  "state": "",
-  "dirtbike": "",
-  "riding_style": "",
-  "rider_level": ""
+  "username": "MotoRider99",
+  "email": "moto99@gmail.com",
+  "password": "riderX123",
+  "state": "TX",
+  "dirtbike": "KTM 250F",
+  "riding_style": "Motocross",
+  "rider_level": "Advanced"
 }
 
 ### DELETE USER BY ID 
