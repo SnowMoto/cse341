@@ -18,17 +18,17 @@ Content-Type: application/json
   "rider_level": "Beginner"
 }
 ###
-PUT http://localhost:8080/user_profile/Mando HTTP/1.1
+PUT http://localhost:8080/user_profile/Bokatan HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "Mandolorian",
-  "email": "mando@gmail.com",
+  "username": "Bokatak",
+  "email": "bomando@gmail.com",
   "password": "darksaber",
-  "state": "Utah",
-  "dirtbike": "Husk TC250",
-  "riding_style": "All",
-  "rider_level": "Advanced"
+  "state": "MA",
+  "dirtbike": "Beta 200",
+  "riding_style": "Enduro",
+  "rider_level": "Beginner"
 }
 ###
 DELETE http://localhost:8080/user_profile/Bokatan HTTP/1.1

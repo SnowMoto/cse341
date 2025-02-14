@@ -66,29 +66,35 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const userId = new ObjectId(req.params.id); 
-  const userUpdate = {
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    state: req.body.state,
-    dirtbike: req.body.dirtbike,
-    riding_style: req.body.riding_style,
-    rider_level: req.body.rider_level
-  };
+  try {
+    const userId = req.params.id; 
+    const userUpdate = {
+      user_id: userId,  
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      state: req.body.state,
+      dirtbike: req.body.dirtbike,
+      riding_style: req.body.riding_style,
+      rider_level: req.body.rider_level
+    };
     const response = await mongodb
       .getDb()
       .db()
       .collection('user_profile')
-      .replaceOne({'users.user_id': userId }, userUpdate,
+      .updateOne({ "users.user_id": userId }, { $set: {"users.$": userUpdate }}
       );
-    console.log(response);
     if (response.modifiedCount > 0) {
-      res.status(204).send();
+      res.status(204).send(); 
     } else {
-      res.status(500).json(response.error || 'Some error occurred while updating the user.');
+      res.status(404).json({ error: "User not found or no changes made." });
     }
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
+
 const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
