@@ -65,7 +65,6 @@ const createUser = async (req, res) => {
   }
 };
 
-
 const updateUser = async (req, res) => {
   const userId = new ObjectId(req.params.id); 
   const userUpdate = {
@@ -81,8 +80,7 @@ const updateUser = async (req, res) => {
       .getDb()
       .db()
       .collection('user_profile')
-      .replaceOne(
-        {'users.user_id': userId }, userUpdate,
+      .replaceOne({'users.user_id': userId }, userUpdate,
       );
     console.log(response);
     if (response.modifiedCount > 0) {
