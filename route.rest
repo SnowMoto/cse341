@@ -2,36 +2,36 @@
 GET http://localhost:8080/user_profile/ 
 Content-Type: application/json
 ###
-GET http://localhost:8080/user_profile/DarthVader
+GET http://localhost:8080/user_profile/Bokatan
 Content-Type: application/json
 ###
 POST http://localhost:8080/user_profile/ HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "BoKatan",
-  "password": "bobo",
+  "username": "Bokatan",
+  "password": "darksaber",
   "email": "bobo@gmail.com",
   "state": "Utah",
-  "dirtbike": "GasGas 300 ",
+  "dirtbike": "Beta 200 ",
   "riding_style": "Trails",
   "rider_level": "Beginner"
 }
 ###
-PUT http://localhost:8080/user_profile/BoKatan HTTP/1.1
+PUT http://localhost:8080/user_profile/Mando HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "BoKatan",
-  "email": "bobo@gmail.com",
-  "password": "bobo123",
+  "username": "Mandolorian",
+  "email": "mando@gmail.com",
+  "password": "darksaber",
   "state": "Utah",
-  "dirtbike": "GasGas 300S",
-  "riding_style": "Enduro",
+  "dirtbike": "Husk TC250",
+  "riding_style": "All",
   "rider_level": "Advanced"
 }
 ###
-DELETE http://localhost:8080/user_profile/BoKatan HTTP/1.1
+DELETE http://localhost:8080/user_profile/Bokatan HTTP/1.1
 Content-Type: application/json
 ###
 

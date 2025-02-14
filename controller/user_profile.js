@@ -18,14 +18,9 @@ const getSingle = async (req, res) => {
     if (!userId) {
       return res.status(400).json({ error: "User ID is required." });
     }
-    console.log("Searching for user with user_id:", userId);
     const userProfile = await mongodb.getDb().db().collection('user_profile').findOne({
       "users.user_id": userId
     });
-    if (!userProfile) {
-      console.log("No user found for user_id:", userId);
-      return res.status(404).json({ error: "User not found." });
-    }
     const user = userProfile.users.find(u => u.user_id === userId);
     if (!user) {
       return res.status(404).json({ error: "User not found." });
@@ -35,7 +30,6 @@ const getSingle = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(userWithoutPassword);
   } catch (error) {
-    console.error("Error fetching user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -45,13 +39,9 @@ const createUser = async (req, res) => {
     const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
     const db = mongodb.getDb().db();
     const userCollection = db.collection("user_profile");
-    const parentDocument = await userCollection.findOne({});
-    //Check if user exsists 
-    const existingUser = await userCollection.findOne({
-      "users.user_id": username
-    });
+    const existingUser = await userCollection.findOne({"users.username": username});
     if (existingUser) {
-      return res.status(400).json({ error: "Username or email already exists." });
+      return res.status(400).json({ error: "Username already exists." });
     }
     const user = {
       user_id: username, 
@@ -63,77 +53,66 @@ const createUser = async (req, res) => {
       riding_style,
       rider_level
     };
-    const response = await userCollection.updateOne(
-      { _id: parentDocument._id },
-      { $push: { users: user } }
-    );
+    const response = await userCollection.updateOne({},{ $push: { users: user } });
     if (response.acknowledged) {
       res.status(201).json({ message: "User created successfully", userId: user.user_id });
-    } 
+    } else {
+      res.status(400).json({ error: "Failed to create user." });
+    }
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+
 const updateUser = async (req, res) => {
+  const userId = req.params.id; 
+  const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
+  if (ObjectId.isValid(userId)) {
+    return res.status(400).json({ error: 'Invalid user' });
+  }
+  const userUpdate = {
+    username,
+    email,
+    password,
+    state,
+    dirtbike,
+    riding_style,
+    rider_level
+  };
   try {
-    const userId = req.params.id; 
-    const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;  
-    if (!userId) {
-      return res.status(400).json({ error: "User ID is required." });
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('user_profile')
+      .updateOne(
+        {'users.user_id': userId },
+        { $set: {'users.$': userUpdate }}
+      );
+    console.log(response);
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(500).json(response.error || 'Some error occurred while updating the user.');
     }
-    const db = mongodb.getDb().db();
-    const userCollection = db.collection("user_profile");
-    const userProfile = await userCollection.findOne({
-      "users.user_id": userId
-    });
-    if (!userProfile) {
-      return res.status(404).json({ error: "User not found." });
-    }
-    const response = await userCollection.updateOne(
-      { "users.user_id": userId },
-      { 
-        user_id: username, 
-        username,
-        email,
-        password,
-        state,
-        dirtbike,
-        riding_style,
-        rider_level
-      }
-    );
-    if (response.modifiedCount === 0) {
-      return res.status(404).json({ error: "User not found or no changes made." });
-    }
-    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error(error);
+    res.status(500).json({ error: 'Database error while updating user.' });
   }
 };
-
 const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
-
-    if (!userId) {
-      return res.status(400).json({ error: "User ID is required." });
-    }
-
-    const db = mongodb.getDb().db();
-    const userCollection = db.collection("user_profile");
-    const response = await userCollection.updateOne(
+    const result = await mongodb.getDb().db().collection('user_profile').updateOne(
       { "users.user_id": userId },  
-      { $pull: { users: { user_id: userId } } } 
+      { $pull: { users: { user_id: userId } } }
     );
-
-    if (response.modifiedCount === 0) {
-      return res.status(404).json({ error: "User not found." });
+    if (result.modifiedCount > 0) {
+      return res.status(200).send({ message: "User deleted successfully." });
+    } else {
+      return res.status(400).json({ error: "User could not be deleted." });
     }
-
-    res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ error: "Internal server error" });
