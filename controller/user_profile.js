@@ -67,7 +67,7 @@ const createUser = async (req, res) => {
 
 
 const updateUser = async (req, res) => {
-  const userId = req.params.id; 
+  const userId = new ObjectId(req.params.id); 
   const userUpdate = {
     username: req.body.username,
     email: req.body.email,
