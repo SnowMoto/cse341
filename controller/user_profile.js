@@ -68,22 +68,20 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const userId = req.params.id; 
-  const { username, email, password, state, dirtbike, riding_style, rider_level } = req.body;
   const userUpdate = {
-    username,
-    email,
-    password,
-    state,
-    dirtbike,
-    riding_style,
-    rider_level
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    state: req.body.state,
+    dirtbike: req.body.dirtbike,
+    riding_style: req.body.riding_style,
+    rider_level: req.body.rider_level
   };
-  try {
     const response = await mongodb
       .getDb()
       .db()
       .collection('user_profile')
-      .updateOne(
+      .replaceOne(
         {'users.user_id': userId },
         { $set: {'users.$': userUpdate }}
       );
@@ -93,10 +91,6 @@ const updateUser = async (req, res) => {
     } else {
       res.status(500).json(response.error || 'Some error occurred while updating the user.');
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Database error while updating user.' });
-  }
 };
 const deleteUser = async (req, res) => {
   try {
