@@ -93,22 +93,20 @@ const updateUser = async (req, res) => {
     }
     const response = await userCollection.updateOne(
       { "users.user_id": userId },
-      { $set: { 
-          "users.$.username": username,
-          "users.$.email": email,
-          "users.$.password": password,
-          "users.$.state": state,
-          "users.$.dirtbike": dirtbike,
-          "users.$.riding_style": riding_style,
-          "users.$.rider_level": rider_level
-        }
+      { 
+        user_id: username, 
+        username,
+        email,
+        password,
+        state,
+        dirtbike,
+        riding_style,
+        rider_level
       }
     );
-
     if (response.modifiedCount === 0) {
       return res.status(404).json({ error: "User not found or no changes made." });
     }
-
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     console.error("Error updating user:", error);
