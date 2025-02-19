@@ -1,9 +1,7 @@
 {
-    "bike_make_id": "G",
-    "bike_make": "GasGas",
     "dirtbikes": [
         {
-            "bike_id": "G1",
+            "bike_id": "GasGas",
             "bike_model": "EC450",
             "engine_type": "2 stroke",
             "trail_type": "All terrain",
@@ -12,7 +10,7 @@
             "rider_level": "Intermediate/Advanced"
         },
         {
-            "bike_id": "G2",
+            "bike_id": "GasGas",
             "bike_model": "MC250",
             "engine_type": "2 stroke",
             "trail_type": "Motocross tracks",
@@ -21,7 +19,7 @@
             "rider_level": "Advanced"
         },
         {
-            "bike_id": "G3",
+            "bike_id": "GasGas",
             "bike_model": "TXT300",
             "engine_type": "2 stroke",
             "trail_type": "Technical trials",
@@ -30,7 +28,7 @@
             "rider_level": "Intermediate/Advanced"
         },
         {
-            "bike_id": "G4",
+            "bike_id": "GasGas",
             "bike_model": "EC300",
             "engine_type": "2 stroke",
             "trail_type": "Technical trials",
