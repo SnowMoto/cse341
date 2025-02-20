@@ -78,9 +78,9 @@ Content-Type: application/json
 ### Dirt Bikes
 
 ### GET ALL Bikes
-GET https://cse341-winter2025.onrender.com/dirt_bikes
+GET https://cse341-winter2025.onrender.com/dirt_bikes 
 Content-Type: application/json
 
 ### GET Bikes BY Model
-GET https://cse341-winter2025.onrender.com/dirt_bikes
+GET https://cse341-winter2025.onrender.com/dirt_bikes 
 Content-Type: application/json
