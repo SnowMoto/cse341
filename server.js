@@ -1,8 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongodb = require('./db/connect');
-//const { auth, requiresAuth } = require('express-openid-connect');
+const { auth, requiresAuth } = require('express-openid-connect');
 require('dotenv').config();
+
+const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+const UserProfile = require('./controller/model');
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -15,16 +19,16 @@ app
   })
   .use('/', require('./route'));
 
-mongodb.initDb((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    app.listen(port);
-    console.log(`Connected to DB and listening on ${port}`);
-  }
-});
+// Mongoose database connection
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch((err) => {
+    console.log('Connection failed: ' + err);
+  });
 
-/*const config = {
+const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SECRET,
@@ -45,6 +49,19 @@ app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
+
+app.get('/user_profile', requiresAuth(), (req, res) => {
+  console.log(req)
+  UserProfile.find()
+  .then(contacts => {
+    res.status(200).json(contacts)
+  }).catch(err => {
+    res.status(500).json({ message: 'An error occured', error: err })
+  })
+})
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
-});*/
+});

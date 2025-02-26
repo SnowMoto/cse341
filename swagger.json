@@ -5,10 +5,10 @@
     "description": "Moto API",
     "version": "1.0.0"
   },
-  "host": "cse341-winter2025.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/user_profile/": {
