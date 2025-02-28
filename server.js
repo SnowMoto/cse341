@@ -1,14 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { auth, requiresAuth } = require('express-openid-connect');
-require('dotenv').config();
 
-const mongoose = require('mongoose');
+const mongodb = require('./db/connect');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const UserProfile = require('./controller/model');
+//const UserProfile = require('./controller/model');
+require('dotenv').config();
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 const app = express();
 
 app
@@ -17,16 +17,16 @@ app
     res.setHeader('Access-Control-Allow-Origin', '*');
     next();
   })
-  .use('/', require('./route'));
+  //.use('/', require('./route'));
 
 // Mongoose database connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log('Connected to database!');
-  })
-  .catch((err) => {
-    console.log('Connection failed: ' + err);
-  });
+mongodb.initDb((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(`Connected to MongoDb`);
+  }
+});
 
 const config = {
   authRequired: false,
@@ -41,26 +41,28 @@ const config = {
 app.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
+// app.get('/', (req, res) => {
+//   // console.log('root route')
+//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+// });
+
+app.get('/login', (req, res)=> {
+  console.log('Login Success');
+  console.log('Redirect to ', process.env.ISSUER_BASE_URL + '/authorize');
+  res.oidc.login();
+})
+
+// app.get('/logout', (req, res)=> {
+//   console.log('logout Success');
+//   console.log('Redirect to ', process.env.ISSUER_BASE_URL + '/authorize');
+//   res.oidc.logout();
+// })
 
 app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
-
-app.get('/user_profile', requiresAuth(), (req, res) => {
-  console.log(req)
-  UserProfile.find()
-  .then(contacts => {
-    res.status(200).json(contacts)
-  }).catch(err => {
-    res.status(500).json({ message: 'An error occured', error: err })
-  })
-})
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', requiresAuth(),swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
