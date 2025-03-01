@@ -212,6 +212,21 @@
                 },
                 "bike_model": {
                   "example": "any"
+                },
+                "engine_type": {
+                  "example": "any"
+                },
+                "trail_type": {
+                  "example": "any"
+                },
+                "handling_type": {
+                  "example": "any"
+                },
+                "racing_type": {
+                  "example": "any"
+                },
+                "rider_level": {
+                  "example": "any"
                 }
               }
             }
@@ -220,9 +235,6 @@
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -257,34 +269,7 @@
         }
       }
     },
-    "/dirt_bikes/{id}": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api-docs": {
+    "/api-docs/": {
       "get": {
         "description": "",
         "responses": {
