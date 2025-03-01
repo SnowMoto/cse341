@@ -3,12 +3,12 @@ const { requiresAuth } = require('express-openid-connect');
 const { route } = require('./user_profile.js');
 const router = express.Router();
 
-route.use(requiresAuth())
+//router.use(requiresAuth())
 
-router.use('/user_profile', require('./user_profile.js'));
+router.use('/user_profile', requiresAuth(), require('./user_profile.js'));
 
-router.use('/dirt_bikes', require('./dirt_bike.js'));
+router.use('/dirt_bikes', requiresAuth(), require('./dirt_bike.js'));
 
-router.use('/', require('./swagger.js'));
+router.use('/api-docs', requiresAuth(), require('./swagger.js'));
 
 module.exports = router;
