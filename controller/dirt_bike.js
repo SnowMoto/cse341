@@ -66,62 +66,39 @@ const getSingleBike = async (req, res) => {
 
 // Add a new bike
 const addBike = async (req, res) => {
-    try {
-        const newBike = req.body;
-        if (!newBike.bike_id || !newBike.bike_model) {
-            return res.status(400).json({ message: "Bike ID and model are required." });
-        }
+    const { bike_model } = req.params;
+    const newBike = req.body; // Assuming the new bike data is coming in the body of the request.
 
+    try {
+        // Find the bike collection where you want to add the new bike
         const result = await mongodb
             .getDb()
             .db()
             .collection('dirt_bikes')
             .updateOne(
-                {},
-                { $push: { dirtbikes: newBike } },
-                { upsert: true }
+                { "dirtbikes.bike_model": bike_model }, // Match the bike model
+                {
+                    $push: { 
+                        dirtbikes: newBike // Push the new bike object into the dirtbikes array
+                    }
+                }
             );
 
-        res.status(201).json({ message: "Bike added successfully.", result });
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ message: "Bike model not found." });
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json({ message: "New bike added successfully." });
     } catch (error) {
-        console.error("Error adding bike:", error);
+        console.error("Error adding new bike:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 };
 
-// Update an existing bike
-const updateBike = async (req, res) => {
-    try {
-        const { bike_id } = req.params;
-        const updatedData = req.body;
-
-        if (!bike_id) {
-            return res.status(400).json({ message: "Bike ID is required." });
-        }
-
-        const result = await mongodb
-            .getDb()
-            .db()
-            .collection('dirt_bikes')
-            .updateOne(
-                { "dirtbikes.bike_id": bike_id },
-                { $set: { "dirtbikes.$": updatedData } }
-            );
-
-        if (result.modifiedCount === 0) {
-            return res.status(404).json({ message: "No bike found with the given ID." });
-        }
-
-        res.status(200).json({ message: "Bike updated successfully.", result });
-    } catch (error) {
-        console.error("Error updating bike:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
-};
 
 module.exports = {
     getAllBikes,
     getSingleBike,
-    updateBike,
     addBike
 };

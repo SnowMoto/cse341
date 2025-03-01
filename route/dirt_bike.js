@@ -9,6 +9,4 @@ router.get('/:bike_model', bikeController.getSingleBike);
 
 router.post('/', bikeController.addBike);
 
-router.put('/:id', bikeController.updateBike);
-
 module.exports = router;
