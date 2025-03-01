@@ -66,37 +66,34 @@ const getSingleBike = async (req, res) => {
 
 // Add a new bike
 const addBike = async (req, res) => {
-    const { bike_model } = req.params;
-    const newBike = req.body; // Assuming the new bike data is coming in the body of the request.
-
     try {
-        // Find the bike collection where you want to add the new bike
-        const result = await mongodb
-            .getDb()
-            .db()
-            .collection('dirt_bikes')
-            .updateOne(
-                { "dirtbikes.bike_model": bike_model }, // Match the bike model
-                {
-                    $push: { 
-                        dirtbikes: newBike // Push the new bike object into the dirtbikes array
-                    }
-                }
-            );
-
-        if (result.matchedCount === 0) {
-            return res.status(404).json({ message: "Bike model not found." });
-        }
-
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json({ message: "New bike added successfully." });
+      // Extract bike data from the request body
+      const newBike = {
+        bike_id: req.body.bike_id, 
+        bike_model: req.body.bike_model, 
+        engine_type: req.body.engine_type, 
+        trail_type: req.body.trail_type, 
+        handling_type: req.body.handling_type, 
+        racing_type: req.body.racing_type, 
+        rider_level: req.body.rider_level,
+      };
+        const response = await mongodb
+        .getDb()
+        .db()
+        .collection('dirt_bikes') 
+        .insertOne({ dirtbikes: [newBike] }); 
+  
+      if (response.insertedCount > 0) {
+        res.status(201).json({ message: "Bike added successfully", bike: newBike });
+      } else {
+        res.status(500).json({ error: "Failed to add the bike." });
+      }
     } catch (error) {
-        console.error("Error adding new bike:", error);
-        res.status(500).json({ error: "Internal server error" });
+      console.error("Error adding bike:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-};
-
-
+  };
+  
 module.exports = {
     getAllBikes,
     getSingleBike,
